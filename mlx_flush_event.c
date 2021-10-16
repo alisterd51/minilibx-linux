@@ -14,7 +14,7 @@
 
 
 
-int	mlx_flush_event(t_xvar *xvar)
+void	mlx_flush_event(t_xvar *xvar)
 {
   XEvent	ev;
 

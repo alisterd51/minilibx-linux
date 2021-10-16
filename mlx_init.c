@@ -16,7 +16,7 @@
 void	*mlx_init()
 {
 	t_xvar	*xvar;
-	
+
 	if (!(xvar = malloc(sizeof(*xvar))))
 		return ((void*)0);
 	if ((xvar->display = XOpenDisplay("")) == 0)
@@ -42,7 +42,7 @@ void	*mlx_init()
 	mlx_int_deal_shm(xvar);
 	if (xvar->private_cmap)
 		xvar->cmap = XCreateColormap(xvar->display,xvar->root,
-				 xvar->visual,AllocNone);
+				xvar->visual,AllocNone);
 	mlx_int_rgb_conversion(xvar);
 	xvar->end_loop = 0;
 	return (xvar);
@@ -55,7 +55,7 @@ void	*mlx_init()
 ** in remote Xserver connections.
 */
 
-int		mlx_int_deal_shm(t_xvar *xvar)
+void	mlx_int_deal_shm(t_xvar *xvar)
 {
 	int		use_pshm;
 	int		bidon;
@@ -81,19 +81,19 @@ int		mlx_int_deal_shm(t_xvar *xvar)
 ** TrueColor Visual is needed to have *_mask correctly set
 */
 
-int		mlx_int_rgb_conversion(t_xvar *xvar)
+void	mlx_int_rgb_conversion(t_xvar *xvar)
 {
 	bzero(xvar->decrgb,sizeof(int)*6);
 	while (!(xvar->visual->red_mask&1))
-		{ xvar->visual->red_mask >>= 1; xvar->decrgb[0] ++; }
+	{ xvar->visual->red_mask >>= 1; xvar->decrgb[0] ++; }
 	while (xvar->visual->red_mask&1)
-		{ xvar->visual->red_mask >>= 1; xvar->decrgb[1] ++; }
+	{ xvar->visual->red_mask >>= 1; xvar->decrgb[1] ++; }
 	while (!(xvar->visual->green_mask&1))
-		{ xvar->visual->green_mask >>= 1; xvar->decrgb[2] ++; }
+	{ xvar->visual->green_mask >>= 1; xvar->decrgb[2] ++; }
 	while (xvar->visual->green_mask&1)
-		{ xvar->visual->green_mask >>= 1; xvar->decrgb[3] ++; }
+	{ xvar->visual->green_mask >>= 1; xvar->decrgb[3] ++; }
 	while (!(xvar->visual->blue_mask&1))
-		{ xvar->visual->blue_mask >>= 1; xvar->decrgb[4] ++; }
+	{ xvar->visual->blue_mask >>= 1; xvar->decrgb[4] ++; }
 	while (xvar->visual->blue_mask&1)
-		{ xvar->visual->blue_mask >>= 1; xvar->decrgb[5] ++; }
+	{ xvar->visual->blue_mask >>= 1; xvar->decrgb[5] ++; }
 }

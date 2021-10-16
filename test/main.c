@@ -38,56 +38,71 @@ int	xpm1_y;
 
 int	local_endian;
 
-int	color_map_1(void *win,int w,int h);
-int	color_map_2(unsigned char *data,int bpp,int sl,int w,int h,int endian, int type);
+void	color_map_1(void *win,int w,int h);
+void	color_map_2(char *data,int bpp,int sl,int w,int h,int endian, int type);
 
 int	expose_win1(void *p)
 {
+	(void)p;
   mlx_put_image_to_window(mlx,win1,im3,0,0);
+  return (0);
 }
 
 int	expose_win2(void *p)
 {
+	(void)p;
   mlx_put_image_to_window(mlx,win2,im4,0,0);
   mlx_put_image_to_window(mlx,win2,im2,0,0);
+	return (0);
 }
 
 int	key_win1(int key,void *p)
 {
+	(void)p;
   printf("Key in Win1 : %d\n",key);
   if (key==0xFF1B)
     exit(0);
+	return (0);
 }
 
 int	key_win2(int key,void *p)
 {
+	(void)p;
   printf("Key in Win2 : %d\n",key);
   if (key==0xFF1B)
     exit(0);
+	return (0);
 }
 
 int	key_win3(int key,void *p)
 {
+	(void)p;
   printf("Key in Win3 : %d\n",key);
   if (key==0xFF1B)
     mlx_destroy_window(mlx,win3);
+	return (0);
 }
 
 int	mouse_win1(int button,int x,int y, void *p)
 {
+	(void)p;
   printf("Mouse in Win1, button %d at %dx%d.\n",button,x,y);
+	return (0);
 }
 
 int	mouse_win2(int button,int x,int y, void *p)
 {
+	(void)p;
   printf("Mouse in Win2, button %d at %dx%d.\n",button,x,y);
+	return (0);
 }
 
 int	mouse_win3(int x,int y, void *p)
 {
+	(void)p;
   printf("Mouse moving in Win3, at %dx%d.\n",x,y);
+	return (0);
 }
-
 
 int	main()
 {
@@ -218,10 +233,11 @@ int	main()
   printf("OK\nNow in Loop. Just play. Esc in 3 to destroy, 1&2 to quit.\n");
   
   mlx_loop(mlx);
+  return (0);
 }
 
 
-int	color_map_1(void *win,int w,int h)
+void	color_map_1(void *win,int w,int h)
 {
   int	x;
   int	y;
@@ -239,8 +255,7 @@ int	color_map_1(void *win,int w,int h)
     }
 }
 
-
-int	color_map_2(unsigned char *data,int bpp,int sl,int w,int h,int endian, int type)
+void	color_map_2(char *data,int bpp,int sl,int w,int h,int endian, int type)
 {
   int	x;
   int	y;
@@ -255,7 +270,7 @@ int	color_map_2(unsigned char *data,int bpp,int sl,int w,int h,int endian, int t
   y = h;
   while (y--)
     {
-      ptr = data+y*sl;
+      ptr = (unsigned char *)data + y * sl;
       x = w;
       while (x--)
         {

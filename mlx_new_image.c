@@ -23,9 +23,11 @@ int	mlx_X_error;
 
 int	shm_att_pb(Display *d,XErrorEvent *ev)
 {
-  if (ev->request_code==146 && ev->minor_code==X_ShmAttach)
-    write(2,WARN_SHM_ATTACH,strlen(WARN_SHM_ATTACH));
-  mlx_X_error = 1;
+	(void)d;
+	if (ev->request_code == 146 && ev->minor_code == X_ShmAttach)
+		write(2,WARN_SHM_ATTACH,strlen(WARN_SHM_ATTACH));
+	mlx_X_error = 1;
+	return (0);
 }
 
 
@@ -143,8 +145,11 @@ void	*mlx_new_image(t_xvar *xvar,int width, int height)
   t_img	*img;
 
   if (xvar->use_xshm)
-    if (img = mlx_int_new_xshm_image(xvar,width,height,ZPixmap))
+  {
+  	img = mlx_int_new_xshm_image(xvar,width,height,ZPixmap);
+    if (img)
       return (img);
+	}
   return (mlx_int_new_image(xvar,width,height,ZPixmap));
 }
 
@@ -153,7 +158,10 @@ void	*mlx_new_image2(t_xvar *xvar,int width, int height)
   t_img	*img;
 
   if (xvar->use_xshm)
-    if (img = mlx_int_new_xshm_image(xvar,width,height,XYPixmap))
+  {
+  img = mlx_int_new_xshm_image(xvar,width,height,XYPixmap);
+    if (img)
       return (img);
+	  }
   return (mlx_int_new_image(xvar,width,height,XYPixmap));
 }

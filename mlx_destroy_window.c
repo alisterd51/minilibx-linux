@@ -12,7 +12,7 @@
 #include	"mlx_int.h"
 
 
-int	mlx_destroy_window(t_xvar *xvar,t_win_list *win)
+void	mlx_destroy_window(t_xvar *xvar,t_win_list *win)
 {
   t_win_list	*w;
   t_win_list	*prev;

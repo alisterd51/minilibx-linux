@@ -5,7 +5,7 @@ INCLIB=$(INC)/../lib
 
 CC=cc
 
-CFLAGS= -I$(INC) -O3 -I.. -g3
+CFLAGS= -I$(INC) -O3 -I.. -g3 -Wall -Wextra -Werror -pedantic-errors
 
 NAME= mlx-test
 SRC = main.c

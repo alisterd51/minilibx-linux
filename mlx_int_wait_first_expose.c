@@ -14,7 +14,7 @@
 
 
 
-int	mlx_int_wait_first_expose(t_xvar *xvar,Window win)
+void	mlx_int_wait_first_expose(t_xvar *xvar,Window win)
 {
   XEvent	ev;
 
