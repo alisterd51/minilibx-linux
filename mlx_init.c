@@ -8,7 +8,7 @@
 ** Last update Fri Jan 28 17:05:09 2005 Olivier Crouzet
 */
 
-
+#include <unistd.h>
 #include	"mlx_int.h"
 
 
