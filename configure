@@ -57,7 +57,8 @@ get_xlib_include_path(){
 		/usr/openwin/include      \
 		/usr/openwin/share/include
 	do
-		if [ -f "$inc/X11/Xlib.h" -a -f "$inc/X11/extensions/XShm.h" ]; then
+		if [ -f "$inc/X11/Xlib.h" ] && [ -f "$inc/X11/extensions/XShm.h" ]
+		then
 			result=$inc
 			break
 		fi
@@ -107,10 +108,10 @@ main(){
 
 	log_info 'Generate "makefile.gen" from template "makefile.mk"'
 		echo "INC=$xlib_inc"  	 	    	>  Makefile.gen 
-		cat Makefile.mk | grep -v %%%%  	>> Makefile.gen
+		< Makefile.mk grep -v %%%%  	>> Makefile.gen
 	log_info 'Generate "test/makefile.gen" from template "test/makefile.mk"'
 		echo "INC=$xlib_inc"				>  test/Makefile.gen
-		cat test/Makefile.mk | grep -v %%%% >> test/Makefile.gen
+		< test/Makefile.mk grep -v %%%% >> test/Makefile.gen
 
 	log_info 'Execute "make all" from file "makefile.gen"'
 		make -f Makefile.gen all
