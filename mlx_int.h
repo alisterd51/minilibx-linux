@@ -8,8 +8,6 @@
 ** Last update Wed May 25 16:44:16 2011 Olivier Crouzet
 */
 
-
-
 /*
 ** Internal settings for MiniLibX
 */
@@ -32,28 +30,24 @@
 # include <X11/XKBlib.h>
 /* #include	<X11/xpm.h> */
 
-
 # define MLX_TYPE_SHM_PIXMAP 3
 # define MLX_TYPE_SHM 2
 # define MLX_TYPE_XIMAGE 1
 
 # define MLX_MAX_EVENT LASTEvent
 
-
 # define ENV_DISPLAY "DISPLAY"
 # define LOCALHOST "localhost"
 # define ERR_NO_TRUECOLOR "MinilibX Error : No TrueColor Visual available.\n"
 # define WARN_SHM_ATTACH "MinilibX Warning : X server can't attach shared memory.\n"
 
-
-typedef	struct	s_xpm_col
+typedef struct	s_xpm_col
 {
 	int		name;
 	int		col;
 }				t_xpm_col;
 
-
-struct	s_col_name
+struct			s_col_name
 {
 	char	*name;
 	int		color;
@@ -65,7 +59,6 @@ typedef struct	s_event_list
 	int		(*hook)();
 	void	*param;
 }				t_event_list;
-
 
 typedef struct	s_win_list
 {
@@ -80,7 +73,6 @@ typedef struct	s_win_list
 	void				*expose_param;
 	t_event_list		hooks[MLX_MAX_EVENT];
 }				t_win_list;
-
 
 typedef struct	s_img
 {
@@ -118,21 +110,18 @@ typedef struct	s_xvar
 	int 		end_loop;
 }				t_xvar;
 
-
-int				mlx_int_do_nothing();
-int				mlx_get_color_value();
-int				mlx_int_get_good_color();
-int				mlx_int_find_in_pcm();
-void			mlx_int_anti_resize_win();
-void			mlx_int_wait_first_expose();
-void			*mlx_int_new_xshm_image();
-char			**mlx_int_str_to_wordtab();
-void			*mlx_new_image();
-int				shm_att_pb();
-int				mlx_int_get_visual(t_xvar *xvar);
-void			mlx_int_set_win_event_mask(t_xvar *xvar);
-int				mlx_int_str_str_cote(char *str,char *find,int len);
-int				mlx_int_str_str(char *str,char *find,int len);
-
+int		mlx_int_do_nothing(void *param);
+int		mlx_get_color_value(t_xvar *xvar, int color);
+int		mlx_int_get_good_color(t_xvar *xvar,int color);
+void	mlx_int_anti_resize_win();
+void	mlx_int_wait_first_expose();
+void	*mlx_int_new_xshm_image();
+char	**mlx_int_str_to_wordtab();
+void	*mlx_new_image();
+int		shm_att_pb();
+int		mlx_int_get_visual(t_xvar *xvar);
+void	mlx_int_set_win_event_mask(t_xvar *xvar);
+int		mlx_int_str_str_cote(char *str, char *find, int len);
+int		mlx_int_str_str(char *str, char *find, int len);
 
 #endif
