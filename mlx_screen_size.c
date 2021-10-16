@@ -8,6 +8,7 @@ void	mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey)
 	
 	xvar = mlx_ptr;
 	ret = XGetWindowAttributes(xvar->display, xvar->root, &xwAttr);
+	(void)ret;
 	(*sizex) = xwAttr.width;
 	(*sizey) = xwAttr.height;
 }

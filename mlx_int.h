@@ -125,8 +125,6 @@ int				mlx_int_get_good_color();
 int				mlx_int_find_in_pcm();
 void			mlx_int_anti_resize_win();
 void			mlx_int_wait_first_expose();
-void			mlx_int_rgb_conversion();
-void			mlx_int_deal_shm();
 void			*mlx_int_new_xshm_image();
 char			**mlx_int_str_to_wordtab();
 void			*mlx_new_image();
