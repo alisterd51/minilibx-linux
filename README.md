@@ -1,4 +1,5 @@
 [![Build](https://github.com/42Paris/minilibx-linux/actions/workflows/ci.yml/badge.svg)](https://github.com/42Paris/minilibx-linux/actions/workflows/ci.yml)
+[![CodeFactor](https://www.codefactor.io/repository/github/alisterd51/minilibx-linux/badge)](https://www.codefactor.io/repository/github/alisterd51/minilibx-linux)
 
 This is the MinilibX, a simple X-Window (X11R6) programming API
 in C, designed for students, suitable for X-beginners.
