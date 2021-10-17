@@ -111,7 +111,7 @@ typedef struct	s_xvar
 }				t_xvar;
 
 int		mlx_int_do_nothing(void *param);
-int		mlx_get_color_value(t_xvar *xvar, int color);
+int		mlx_get_color_value();
 int		mlx_int_get_good_color(t_xvar *xvar,int color);
 void	mlx_int_anti_resize_win();
 void	mlx_int_wait_first_expose();
