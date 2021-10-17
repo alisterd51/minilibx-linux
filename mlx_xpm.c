@@ -8,10 +8,9 @@
 ** Last update Sat Oct  1 14:56:13 2005 Olivier Crouzet
 */
 
-#include	"mlx_int.h"
+#include "mlx_int.h"
 
 extern struct s_col_name mlx_col_name[];
-
 
 #define	RETURN	{ if (colors) free(colors); if (tab) free(tab); \
 	tab = (void *)0; if (colors_direct) free(colors_direct); \
@@ -19,31 +18,27 @@ extern struct s_col_name mlx_col_name[];
 		XFreePixmap(xvar->display,img->pix);free(img);} \
 	return ((void *)0);}
 
-
-
-
-char	*mlx_int_get_line(char *ptr,int *pos,int size)
+static char	*mlx_int_get_line(char *ptr,int *pos,int size)
 {
-	int			pos2;
-	int			pos3;
-	int			pos4;
+	int	pos2;
+	int	pos3;
+	int	pos4;
 
-	if ((pos2 = mlx_int_str_str(ptr+*pos,"\"",size-*pos))==-1)
+	if ((pos2 = mlx_int_str_str(ptr + *pos, "\"", size - *pos)) == -1)
 		return ((char *)0);
-	if ((pos3 = mlx_int_str_str(ptr+*pos+pos2+1,"\"",size-*pos-pos2-1))==-1)
+	if ((pos3 = mlx_int_str_str(ptr + *pos + pos2 + 1, "\"", size - *pos - pos2 - 1)) == -1)
 		return ((char *)0);
-	*(ptr+*pos+pos2) = 0;
-	*(ptr+*pos+pos2+1+pos3) = 0;
-	pos4 = *pos+pos2+1;
-	*pos += pos2+pos3+2;
-	return (ptr+pos4);
+	*(ptr + *pos + pos2) = 0;
+	*(ptr + *pos + pos2 + 1 + pos3) = 0;
+	pos4 = *pos + pos2 + 1;
+	*pos += pos2 + pos3 + 2;
+	return (ptr + pos4);
 }
 
-
-unsigned int	strlcpy_is_not_posix(char *dest, char *src, unsigned int size)
+static unsigned int	strlcpy_is_not_posix(char *dest, char *src, unsigned int size)
 {
-	unsigned	count;
-	unsigned	i;
+	unsigned int	count;
+	unsigned int	i;
 
 	count = 0;
 	while (src[count] != '\0')
@@ -58,7 +53,7 @@ unsigned int	strlcpy_is_not_posix(char *dest, char *src, unsigned int size)
 	return (count);
 }
 
-char	*mlx_int_static_line(char **xpm_data,int *pos)
+static char	*mlx_int_static_line(char **xpm_data,int *pos)
 {
 	static char	*copy = 0;
 	static int	len = 0;
@@ -75,23 +70,20 @@ char	*mlx_int_static_line(char **xpm_data,int *pos)
 		len = len2;
 	}
 	strlcpy_is_not_posix(copy, str, len2);
-
 	return (copy);
 }
 
-
-int	mlx_int_get_col_name(char *str,int size)
+static int	mlx_int_get_col_name(char *str,int size)
 {
 	int	result;
 
 	result = 0;
 	while (size--)
 		result = (result<<8)+*(str++);
-
 	return (result);
 }
 
-int	mlx_int_get_text_rgb(char *name, char *end)
+static int	mlx_int_get_text_rgb(char *name, char *end)
 {
 	int			i;
 	char		buff[64];
@@ -108,13 +100,12 @@ int	mlx_int_get_text_rgb(char *name, char *end)
 	{
 		if (!strcasecmp(mlx_col_name[i].name, name))
 			return (mlx_col_name[i].color);
-		i ++;
+		i++;
 	}
 	return (0);
 }
 
-
-void	mlx_int_xpm_set_pixel(t_img *img, char *data, int opp, int col, int x)
+static void	mlx_int_xpm_set_pixel(t_img *img, char *data, int opp, int col, int x)
 {
 	int	dec;
 
@@ -129,8 +120,7 @@ void	mlx_int_xpm_set_pixel(t_img *img, char *data, int opp, int col, int x)
 	}
 }
 
-
-void	*mlx_int_parse_xpm(t_xvar *xvar,void *info,int info_size,char *(*f)())
+static void	*mlx_int_parse_xpm(t_xvar *xvar,void *info,int info_size,char *(*f)())
 {
 	int		pos;
 	char	*line;
@@ -164,7 +154,6 @@ void	*mlx_int_parse_xpm(t_xvar *xvar,void *info,int info_size,char *(*f)())
 		RETURN;
 	free(tab);
 	tab = 0;
-
 	method = 0;
 	if (cpp<=2)
 	{
@@ -198,12 +187,9 @@ void	*mlx_int_parse_xpm(t_xvar *xvar,void *info,int info_size,char *(*f)())
 		free(tab);
 		tab = (void *)0;
 	}
-
 	if (!(img = mlx_new_image(xvar,width,height)))
 		RETURN;
 	opp = img->bpp/8;
-
-
 	i = height;
 	data = img->data;
 	while (i--)
@@ -241,8 +227,7 @@ void	*mlx_int_parse_xpm(t_xvar *xvar,void *info,int info_size,char *(*f)())
 	return (img);
 }
 
-
-void	mlx_int_file_get_rid_comment(char *ptr, int size)
+static void	mlx_int_file_get_rid_comment(char *ptr, int size)
 {
 	int	com_begin;
 	int	com_end;
@@ -258,7 +243,6 @@ void	mlx_int_file_get_rid_comment(char *ptr, int size)
 		memset(ptr+com_begin,' ',com_end+3);
 	}
 }
-
 
 void	*mlx_xpm_file_to_image(t_xvar *xvar,char *file,int *width,int *height)
 {
@@ -292,7 +276,7 @@ void	*mlx_xpm_to_image(t_xvar *xvar,char **xpm_data,int *width,int *height)
 {
 	t_img	*img;
 
-	img = mlx_int_parse_xpm(xvar,xpm_data,0,mlx_int_static_line);
+	img = mlx_int_parse_xpm(xvar, xpm_data, 0, mlx_int_static_line);
 	if (img)
 	{
 		*width = img->width;

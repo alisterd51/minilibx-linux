@@ -1,6 +1,18 @@
-#include	<unistd.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_ext_randr.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: anclarma <anclarma@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/10/18 00:23:37 by anclarma          #+#    #+#             */
+/*   Updated: 2021/10/18 00:30:37 by anclarma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <unistd.h>
 #include <X11/extensions/Xrandr.h>
-#include	"mlx_int.h"
+#include "mlx_int.h"
 
 int	mlx_ext_fullscreen(t_xvar *xvar, t_win_list *win, int fullscreen)
 {
@@ -44,9 +56,11 @@ int	mlx_ext_fullscreen(t_xvar *xvar, t_win_list *win, int fullscreen)
 		j = res->nmode;
 		while (j--)
 			if (res->modes[j].id == o_info->modes[i])
-				if (res->modes[j].width >= watt.width && res->modes[j].height >= watt.height &&
-						(idx_candidate == -1 || res->modes[idx_candidate].width > res->modes[j].width ||
-						 res->modes[idx_candidate].height > res->modes[j].height) )
+				if (res->modes[j].width >= watt.width
+					&& res->modes[j].height >= watt.height
+					&& (idx_candidate == -1
+						|| res->modes[idx_candidate].width > res->modes[j].width
+						|| res->modes[idx_candidate].height > res->modes[j].height))
 					idx_candidate = i;
 	}
 	if (idx_candidate < 0)
@@ -60,7 +74,6 @@ int	mlx_ext_fullscreen(t_xvar *xvar, t_win_list *win, int fullscreen)
 	mode_candidate = o_info->modes[idx_candidate];
 	if (!fullscreen)
 		mode_candidate = saved_mode;
-
 	crtc = XRRGetCrtcInfo(xvar->display, res, o_info->crtc);
 	saved_mode = crtc->mode;
 	i = XRRSetCrtcConfig(xvar->display, res, o_info->crtc, CurrentTime, 0, 0, mode_candidate,
