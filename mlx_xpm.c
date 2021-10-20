@@ -10,7 +10,7 @@
 
 #include "mlx_int.h"
 
-extern struct s_col_name mlx_col_name[];
+extern const struct s_col_name	g_mlx_col_name[];
 
 #define	RETURN	{ if (colors) free(colors); if (tab) free(tab); \
 	tab = (void *)0; if (colors_direct) free(colors_direct); \
@@ -96,10 +96,10 @@ static int	mlx_int_get_text_rgb(char *name, char *end)
 		name = buff;
 	}
 	i = 0;
-	while (mlx_col_name[i].name)
+	while (g_mlx_col_name[i].name)
 	{
-		if (!strcasecmp(mlx_col_name[i].name, name))
-			return (mlx_col_name[i].color);
+		if (!strcasecmp(g_mlx_col_name[i].name, name))
+			return (g_mlx_col_name[i].color);
 		i++;
 	}
 	return (0);
