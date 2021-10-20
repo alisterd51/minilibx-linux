@@ -56,5 +56,7 @@ Install MinilibX
  Olivier CROUZET - 2014-01-06 -
 
 Refactorisation et passage a la norme v3 en cours
+Nota: il est impossible de mettre le mlx entièrement
+	a la norme v3 car certaines fonctions prennent trop d'arguments
 
- Antoine CLARMAN - 2021-10-16 -
+ Antoine CLARMAN - 2021-10-21 -
