@@ -6,7 +6,7 @@
 /*   By: Charlie Root <ol@epitech.net>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2001/12/11 15:25:27 by Charlie Root      #+#    #+#             */
-/*   Updated: 2021/10/21 15:49:49 by anclarma         ###   ########.fr       */
+/*   Updated: 2021/10/21 16:52:00 by anclarma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,34 @@ extern const struct s_col_name	g_mlx_col_name[];
 		XFreePixmap(xvar->display,img->pix);free(img);} \
 	return ((void *)0);}
 
-static char	*mlx_int_get_line(char *ptr,int *pos,int size)
+/*
+static void	*test()
+{
+	free(colors);
+	free(tab);
+	tab = (void *)0;
+	free(colors_direct);
+	if (img)
+	{
+		XDestroyImage(img->image);
+		XFreePixmap(xvar->display, img->pix);
+		free(img);
+	}
+	return ((void *)0);
+}
+*/
+
+static char	*mlx_int_get_line(char *ptr, int *pos, int size)
 {
 	int	pos2;
 	int	pos3;
 	int	pos4;
 
-	if ((pos2 = mlx_int_str_str(ptr + *pos, "\"", size - *pos)) == -1)
+	pos2 = mlx_int_str_str(ptr + *pos, "\"", size - *pos);
+	if (pos2 == -1)
 		return ((char *)0);
-	if ((pos3 = mlx_int_str_str(ptr + *pos + pos2 + 1, "\"", size - *pos - pos2 - 1)) == -1)
+	pos3 = mlx_int_str_str(ptr + *pos + pos2 + 1, "\"", size - *pos - pos2 - 1);
+	if (pos3 == -1)
 		return ((char *)0);
 	*(ptr + *pos + pos2) = 0;
 	*(ptr + *pos + pos2 + 1 + pos3) = 0;
@@ -63,11 +82,13 @@ static char	*mlx_int_static_line(char **xpm_data, int *pos)
 	char		*str;
 
 	str = xpm_data[(*pos)++];
-	if ((len2 = strlen(str)) > len)
+	len2 = strlen(str);
+	if (len2 > len)
 	{
 		if (copy)
 			free(copy);
-		if (!(copy = malloc(len2 + 1)))
+		copy = malloc(len2 + 1);
+		if (!copy)
 			return ((char *)0);
 		len = len2;
 	}
@@ -75,7 +96,7 @@ static char	*mlx_int_static_line(char **xpm_data, int *pos)
 	return (copy);
 }
 
-static int	mlx_int_get_col_name(char *str,int size)
+static int	mlx_int_get_col_name(char *str, int size)
 {
 	int	result;
 
@@ -107,7 +128,8 @@ static int	mlx_int_get_text_rgb(char *name, char *end)
 	return (0);
 }
 
-static void	mlx_int_xpm_set_pixel(t_img *img, char *data, int opp, int col, int x)
+static void	mlx_int_xpm_set_pixel(t_img *img, char *data,
+	int opp, int col, int x)
 {
 	int	dec;
 
@@ -149,10 +171,12 @@ static void	*mlx_int_parse_xpm(t_xvar *xvar, void *info, int info_size, char *(*
 	img = 0;
 	tab = 0;
 	pos = 0;
-	if (!(line = f(info, &pos, info_size)) ||
-			!(tab = mlx_int_str_to_wordtab(line)) || !(width = atoi(tab[0])) ||
-			!(height = atoi(tab[1])) || !(nc = atoi(tab[2])) ||
-			!(cpp = atoi(tab[3])) )
+	if (!(line = f(info, &pos, info_size))
+		|| !(tab = mlx_int_str_to_wordtab(line))
+		|| !(width = atoi(tab[0]))
+		|| !(height = atoi(tab[1]))
+		|| !(nc = atoi(tab[2]))
+		|| !(cpp = atoi(tab[3])))
 		RETURN;
 	free(tab);
 	tab = 0;
@@ -173,8 +197,8 @@ static void	*mlx_int_parse_xpm(t_xvar *xvar, void *info, int info_size, char *(*
 	i = nc;
 	while (i--)
 	{
-		if (!(line = f(info, &pos, info_size)) ||
-				!(tab = mlx_int_str_to_wordtab(line + cpp)) )
+		if (!(line = f(info, &pos, info_size))
+			|| !(tab = mlx_int_str_to_wordtab(line + cpp)))
 			RETURN;
 		j = 0;
 		while (tab[j] && strcmp(tab[j++],"c"));
@@ -227,10 +251,8 @@ static void	*mlx_int_parse_xpm(t_xvar *xvar, void *info, int info_size, char *(*
 		}
 		data += img->size_line;
 	}
-	if (colors)
-		free(colors);
-	if (colors_direct)
-		free(colors_direct);
+	free(colors);
+	free(colors_direct);
 	return (img);
 }
 
