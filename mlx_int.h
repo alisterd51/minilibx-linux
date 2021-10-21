@@ -110,12 +110,11 @@ typedef struct	s_xvar
 	int 		end_loop;
 }				t_xvar;
 
-int		mlx_int_do_nothing(void *param);
 int		mlx_get_color_value();
 int		mlx_int_get_good_color(t_xvar *xvar,int color);
-void	mlx_int_anti_resize_win();
-void	mlx_int_wait_first_expose();
-char	**mlx_int_str_to_wordtab();
+void	mlx_int_anti_resize_win(t_xvar *xvar, Window win, int w, int h);
+void	mlx_int_wait_first_expose(t_xvar *xvar, Window win);
+char	**mlx_int_str_to_wordtab(char *str);
 void	*mlx_new_image();
 int		mlx_int_get_visual(t_xvar *xvar);
 void	mlx_int_set_win_event_mask(t_xvar *xvar);
