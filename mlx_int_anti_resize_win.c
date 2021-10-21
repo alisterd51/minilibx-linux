@@ -1,22 +1,23 @@
-/*
-** mlx_int_anti_resize_win.c for MiniLibX in 
-** 
-** Made by Charlie Root
-** Login   <ol@epitech.net>
-** 
-** Started on  Tue Aug  8 14:31:05 2000 Charlie Root
-** Last update Tue Sep 25 15:56:58 2001 Charlie Root
-*/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_int_anti_resize_win.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Charlie Root <ol@epitech.net>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2000/08/08 14:31:05 by Charlie Root      #+#    #+#             */
+/*   Updated: 2021/10/21 17:14:49 by anclarma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include	"mlx_int.h"
+#include "mlx_int.h"
 
-
-void	mlx_int_anti_resize_win(t_xvar *xvar,Window win,int w,int h)
+void	mlx_int_anti_resize_win(t_xvar *xvar, Window win, int w, int h)
 {
 	XSizeHints	hints;
-	long		toto;
+	long int	toto;
 
-	XGetWMNormalHints(xvar->display,win,&hints,&toto);
+	XGetWMNormalHints(xvar->display, win, &hints, &toto);
 	hints.width = w;
 	hints.height = h;
 	hints.min_width = w;
@@ -24,5 +25,5 @@ void	mlx_int_anti_resize_win(t_xvar *xvar,Window win,int w,int h)
 	hints.max_width = w;
 	hints.max_height = h;
 	hints.flags = PPosition | PSize | PMinSize | PMaxSize;
-	XSetWMNormalHints(xvar->display,win,&hints);
+	XSetWMNormalHints(xvar->display, win, &hints);
 }
