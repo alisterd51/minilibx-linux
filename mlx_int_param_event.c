@@ -1,12 +1,14 @@
-/*
-** mlx_int_param_event.c for MinilibX in 
-** 
-** Made by Charlie Root
-** Login   <ol@epitech.net>
-** 
-** Started on  Mon Jul 31 16:37:50 2000 Charlie Root
-** Last update Wed Oct  6 13:14:52 2004 Olivier Crouzet
-*/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_int_param_event.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Charlie Root <ol@epitech.net>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2000/07/31 16:37:50 by Charlie Root      #+#    #+#             */
+/*   Updated: 2021/10/26 16:58:42 by anclarma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "mlx_int.h"
 
@@ -17,43 +19,42 @@ static void	mlx_int_param_undef(t_xvar *xvar, XEvent *ev, t_win_list *win)
 	(void)win;
 }
 
-static void	mlx_int_param_KeyPress(t_xvar *xvar, XEvent *ev, t_win_list *win)
+static void	mlx_int_param_keypress(t_xvar *xvar, XEvent *ev, t_win_list *win)
 {
 	win->hooks[KeyPress].hook(XkbKeycodeToKeysym(xvar->display,
-				ev->xkey.keycode, 0, 0),
-				win->hooks[KeyPress].param);
+			ev->xkey.keycode, 0, 0), win->hooks[KeyPress].param);
 }
 
-static void	mlx_int_param_KeyRelease(t_xvar *xvar, XEvent *ev, t_win_list *win)
+static void	mlx_int_param_keyrelease(t_xvar *xvar, XEvent *ev, t_win_list *win)
 {
 	win->hooks[KeyRelease].hook(XkbKeycodeToKeysym(xvar->display,
-				ev->xkey.keycode, 0, 0),
-				win->hooks[KeyRelease].param);
+			ev->xkey.keycode, 0, 0), win->hooks[KeyRelease].param);
 }
 
-static void	mlx_int_param_ButtonPress(t_xvar *xvar, XEvent *ev, t_win_list *win)
+static void	mlx_int_param_buttonpress(t_xvar *xvar, XEvent *ev, t_win_list *win)
 {
 	(void)xvar;
-	win->hooks[ButtonPress].hook(ev->xbutton.button,ev->xbutton.x,ev->xbutton.y,
-			win->hooks[ButtonPress].param);
+	win->hooks[ButtonPress].hook(ev->xbutton.button, ev->xbutton.x,
+		ev->xbutton.y, win->hooks[ButtonPress].param);
 }
 
-static void	mlx_int_param_ButtonRelease(t_xvar *xvar, XEvent *ev, t_win_list *win)
+static void	mlx_int_param_buttonrelease(t_xvar *xvar, XEvent *ev,
+	t_win_list *win)
 {
 	(void)xvar;
-	win->hooks[ButtonRelease].hook(ev->xbutton.button,
-			ev->xbutton.x, ev->xbutton.y,
-			win->hooks[ButtonRelease].param);
+	win->hooks[ButtonRelease].hook(ev->xbutton.button, ev->xbutton.x,
+		ev->xbutton.y, win->hooks[ButtonRelease].param);
 }
 
-static void	mlx_int_param_MotionNotify(t_xvar *xvar, XEvent *ev, t_win_list *win)
+static void	mlx_int_param_motionnotify(t_xvar *xvar, XEvent *ev,
+	t_win_list *win)
 {
 	(void)xvar;
-	win->hooks[MotionNotify].hook(ev->xbutton.x,ev->xbutton.y,
-			win->hooks[MotionNotify].param);
+	win->hooks[MotionNotify].hook(ev->xbutton.x, ev->xbutton.y,
+		win->hooks[MotionNotify].param);
 }
 
-static void	mlx_int_param_Expose(t_xvar *xvar, XEvent *ev, t_win_list *win)
+static void	mlx_int_param_expose(t_xvar *xvar, XEvent *ev, t_win_list *win)
 {
 	(void)xvar;
 	if (!ev->xexpose.count)
@@ -68,19 +69,19 @@ static void	mlx_int_param_generic(t_xvar *xvar, XEvent *ev, t_win_list *win)
 
 void	(*(mlx_int_param_event[]))() =
 {
-	mlx_int_param_undef,   /* 0 */
 	mlx_int_param_undef,
-	mlx_int_param_KeyPress,
-	mlx_int_param_KeyRelease,  /* 3 */
-	mlx_int_param_ButtonPress,
-	mlx_int_param_ButtonRelease,
-	mlx_int_param_MotionNotify,  /* 6 */
+	mlx_int_param_undef,
+	mlx_int_param_keypress,
+	mlx_int_param_keyrelease,
+	mlx_int_param_buttonpress,
+	mlx_int_param_buttonrelease,
+	mlx_int_param_motionnotify,
 	mlx_int_param_generic,
 	mlx_int_param_generic,
 	mlx_int_param_generic,
 	mlx_int_param_generic,
 	mlx_int_param_generic,
-	mlx_int_param_Expose,   /* 12 */
+	mlx_int_param_expose,
 	mlx_int_param_generic,
 	mlx_int_param_generic,
 	mlx_int_param_generic,
