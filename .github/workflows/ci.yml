@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-20.04, macos-latest]
+        os: [ubuntu-latest, macos-latest]
 
     timeout-minutes: 20
     steps:
@@ -24,6 +24,7 @@ jobs:
       run: |
         set -x
         if [ "$RUNNER_OS" == "Linux" ]; then
+            sudo apt-get update
             sudo apt-get install gcc make xorg libxext-dev libbsd-dev
         elif [ "$RUNNER_OS" == "macOS" ]; then
             brew install xquartz
@@ -36,7 +37,6 @@ jobs:
       run: |
         set -x
         if [ "$RUNNER_OS" == "Linux" ]; then
-            sudo apt-get update
             sudo apt-get install xvfb xdotool valgrind
             Xvfb $DISPLAY -screen 0 1280x1024x24 &
         elif [ "$RUNNER_OS" == "macOS" ]; then
