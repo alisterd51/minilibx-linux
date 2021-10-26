@@ -6,7 +6,7 @@
 /*   By: Charlie Root <ol@epitech.net>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2000/08/14 15:29:14 by Charlie Root      #+#    #+#             */
-/*   Updated: 2021/10/21 01:23:24 by anclarma         ###   ########.fr       */
+/*   Updated: 2021/10/26 02:41:33 by anclarma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,12 @@ int	mlx_X_error;
 
 static int	shm_att_pb(Display *d, XErrorEvent *ev)
 {
+	ssize_t	ret;
+
 	(void)d;
 	if (ev->request_code == 146 && ev->minor_code == X_ShmAttach)
-		write(2, WARN_SHM_ATTACH, strlen(WARN_SHM_ATTACH));
+		ret = write(2, WARN_SHM_ATTACH, strlen(WARN_SHM_ATTACH));
+	(void)ret;
 	mlx_X_error = 1;
 	return (0);
 }
