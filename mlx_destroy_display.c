@@ -6,7 +6,7 @@
 /*   By: mg <mg@student.42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/03 18:56:35 by mg                #+#    #+#             */
-/*   Updated: 2021/10/16 10:28:29 by anclarma         ###   ########.fr       */
+/*   Updated: 2021/10/26 23:44:31 by anclarma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,6 @@
 void	mlx_destroy_display(t_xvar *xvar)
 {
 	XCloseDisplay(xvar->display);
+	free(xvar);
+	xvar = NULL;
 }

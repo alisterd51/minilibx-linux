@@ -6,7 +6,7 @@
 /*   By: anclarma <anclarma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 00:26:02 by anclarma          #+#    #+#             */
-/*   Updated: 2021/10/21 00:36:59 by anclarma         ###   ########.fr       */
+/*   Updated: 2021/10/26 23:31:45 by anclarma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		xpm1_y;
 
 int		local_endian;
 
-void	color_map_1(void *win, int w, int h)
+static void	color_map_1(void *win, int w, int h)
 {
 	int	x;
 	int	y;
@@ -68,7 +68,7 @@ void	color_map_1(void *win, int w, int h)
 	}
 }
 
-void	color_map_2(char *data, int bpp, int sl, int w, int h, int endian,
+static void	color_map_2(char *data, int bpp, int sl, int w, int h, int endian,
 	int type)
 {
 	int				x;
@@ -200,7 +200,7 @@ int	main(void)
 	if (!mlx)
 	{
 		printf(" !! KO !!\n");
-		exit(1);
+		return (1);
 	}
 	printf("OK (use_xshm %d pshm_format %d)\n", ((t_xvar *)mlx)->use_xshm,
 		((t_xvar *)mlx)->pshm_format);
