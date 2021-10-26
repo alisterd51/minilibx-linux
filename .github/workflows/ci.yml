@@ -51,11 +51,11 @@ jobs:
       run: ./configure
 
     - name: make check Linux
-      if: matrix.os == 'ubuntu-latest'
+      if: ${{ matrix.os == 'ubuntu-18.04' || matrix.os == 'ubuntu-20.04' }}
       run: make -f Makefile.gen check
     - name: make check MacOS
       continue-on-error: true
-      if: matrix.os == 'macos-latest'
+      if: matrix.os == 'macos-11'
       run: make -f Makefile.gen check
       # Didn't find a way to simulate inputs on Macos. libxdo seem to no longer work on macos.
       # It can be partially fixed writing proper unit-tests, thus avoiding the need of libxdo.
