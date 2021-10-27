@@ -121,6 +121,12 @@ static void	color_map_2(char *data, int bpp, int sl, int w, int h, int endian,
 	}
 }
 
+static int	no_event(void *p)
+{
+	(void)p;
+	return (0);
+}
+
 static int	expose_win1(void *p)
 {
 	(void)p;
@@ -141,7 +147,7 @@ static int	key_win1(int key, void *p)
 	(void)p;
 	printf("Key in Win1 : %d\n", key);
 	if (key == 0xFF1B)
-		exit(0);
+		mlx_loop_end(mlx);
 	return (0);
 }
 
@@ -150,7 +156,7 @@ static int	key_win2(int key, void *p)
 	(void)p;
 	printf("Key in Win2 : %d\n", key);
 	if (key == 0xFF1B)
-		exit(0);
+		mlx_loop_end(mlx);
 	return (0);
 }
 
@@ -158,8 +164,11 @@ static int	key_win3(int key, void *p)
 {
 	(void)p;
 	printf("Key in Win3 : %d\n", key);
-	if (key == 0xFF1B)
+	if (key == 0xFF1B && win3)
+	{
 		mlx_destroy_window(mlx, win3);
+		win3 = (void *)0;
+	}
 	return (0);
 }
 
@@ -209,7 +218,8 @@ int	main(void)
 	if (!win1)
 	{
 		printf(" !! KO !!\n");
-		exit(1);
+		mlx_destroy_display(mlx);
+		return (1);
 	}
 	printf("OK\n");
 	printf(" => Colormap sans event ...");
@@ -225,7 +235,9 @@ int	main(void)
 	if (!im1)
 	{
 		printf(" !! KO !!\n");
-		exit(1);
+		mlx_destroy_window(mlx, win1);
+		mlx_destroy_display(mlx);
+		return (1);
 	}
 	data1 = mlx_get_data_addr(im1, &bpp1, &sl1, &endian1);
 	printf("OK (bpp1: %d, sizeline1: %d endian: %d type: %d)\n",
@@ -246,7 +258,9 @@ int	main(void)
 	if (!im3)
 	{
 		printf(" !! KO !!\n");
-		exit(1);
+		mlx_destroy_window(mlx, win1);
+		mlx_destroy_display(mlx);
+		return (1);
 	}
 	data3 = mlx_get_data_addr(im3, &bpp3, &sl3, &endian3);
 	printf("OK (bpp3 %d, sizeline3 %d endian3 %d type %d)\n",
@@ -268,7 +282,10 @@ int	main(void)
 	if (!im2)
 	{
 		printf(" !! KO !!\n");
-		exit(1);
+		mlx_destroy_image(mlx, im3);
+		mlx_destroy_window(mlx, win1);
+		mlx_destroy_display(mlx);
+		return (1);
 	}
 	data2 = mlx_get_data_addr(im2, &bpp2, &sl2, &endian2);
 	printf("OK (xpm %dx%d)(img bpp2: %d, sizeline2: %d endian: %d type: %d)\n",
@@ -281,16 +298,31 @@ int	main(void)
 	sleep(2);
 	printf(" => 2nd window,");
 	win2 = mlx_new_window(mlx, WIN1_SX, WIN1_SY, "Title2");
+	if (!win2)
+	{
+		printf(" !! KO !!\n");
+		mlx_destroy_image(mlx, im2);
+		mlx_destroy_image(mlx, im3);
+		mlx_destroy_window(mlx, win1);
+		mlx_destroy_display(mlx);
+		return (1);
+	}
 	im4 = mlx_new_image(mlx, IM3_SX, IM3_SY);
 	if (!im4)
 	{
 		printf(" !! KO !!\n");
-		exit(1);
+		mlx_destroy_window(mlx, win2);
+		mlx_destroy_image(mlx, im2);
+		mlx_destroy_image(mlx, im3);
+		mlx_destroy_window(mlx, win1);
+		mlx_destroy_display(mlx);
+		return (1);
 	}
 	data4 = mlx_get_data_addr(im4, &bpp4, &sl4, &endian4);
 	color_map_2(data4, bpp4, sl4, IM3_SX, IM3_SY, endian4, 2);
 	printf(" 3rd window, Installing hooks ...");
 	win3 = mlx_new_window(mlx, WIN1_SX, WIN1_SY, "Title3");
+	mlx_loop_hook(mlx, no_event, 0);
 	mlx_expose_hook(win1, expose_win1, 0);
 	mlx_mouse_hook(win1, mouse_win1, 0);
 	mlx_key_hook(win1, key_win1, 0);
@@ -301,5 +333,16 @@ int	main(void)
 	mlx_hook(win3, MotionNotify, PointerMotionMask, mouse_win3, 0);
 	printf("OK\nNow in Loop. Just play. Esc in 3 to destroy, 1&2 to quit.\n");
 	mlx_loop(mlx);
+	if (win3)
+	{
+		mlx_destroy_window(mlx, win3);
+		win3 = (void *)0;
+	}
+	mlx_destroy_image(mlx, im4);
+	mlx_destroy_window(mlx, win2);
+	mlx_destroy_image(mlx, im2);
+	mlx_destroy_image(mlx, im3);
+	mlx_destroy_window(mlx, win1);
+	mlx_destroy_display(mlx);
 	return (0);
 }
