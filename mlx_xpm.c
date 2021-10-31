@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_xpm.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Charlie Root <ol@epitech.net>              +#+  +:+       +#+        */
+/*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2001/12/11 15:25:27 by Charlie Root      #+#    #+#             */
-/*   Updated: 2021/10/21 16:52:00 by anclarma         ###   ########.fr       */
+/*   Created: 2001/12/11 15:25:27 by Charlie Roo       #+#    #+#             */
+/*   Updated: 2021/10/31 22:36:01 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static char	*mlx_int_static_line(char **xpm_data, int *pos)
 			return ((char *)0);
 		len = len2;
 	}
-	strlcpy_is_not_posix(copy, str, len2);
+	strlcpy_is_not_posix(copy, str, len2 + 1);
 	return (copy);
 }
 
@@ -251,6 +251,7 @@ static void	*mlx_int_parse_xpm(t_xvar *xvar, void *info, int info_size, char *(*
 		}
 		data += img->size_line;
 	}
+	free(line);
 	free(colors);
 	free(colors_direct);
 	return (img);
