@@ -6,7 +6,7 @@
 /*   By: Charlie Root <ol@epitech.net>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2000/08/13 11:36:09 by Charlie Root      #+#    #+#             */
-/*   Updated: 2021/10/20 22:44:59 by anclarma         ###   ########.fr       */
+/*   Updated: 2021/11/01 17:40:09 by anclarma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,45 +67,54 @@ int	mlx_int_str_str_cote(char *str, char *find, int len)
 	return (-1);
 }
 
-char	**mlx_int_str_to_wordtab(char *str)
+static int	mlx_int_str_count_word(char *str, int len)
 {
-	char	**tab;
 	int		pos;
 	int		nb_word;
-	int		len;
 
-	len = strlen(str);
 	nb_word = 0;
 	pos = 0;
 	while (pos < len)
 	{
-		while (*(str + pos) == ' ' || *(str + pos) == '\t')
+		while (str[pos] == ' ' || str[pos] == '\t')
 			pos++;
-		if (*(str + pos))
+		if (str[pos])
 			nb_word++;
-		while (*(str + pos) && *(str + pos) != ' ' && *(str + pos) != '\t')
+		while (str[pos] && str[pos] != ' ' && str[pos] != '\t')
 			pos++;
 	}
-	tab = malloc((1 + nb_word) * sizeof(*tab));
-	if (!tab)
-		return ((char **)0);
+	return (nb_word);
+}
+
+static void	mlx_int_str_init_wordtab(char *str, char **tab, int len)
+{
+	int		pos;
+	int		nb_word;
+
 	nb_word = 0;
 	pos = 0;
 	while (pos < len)
 	{
-		while (*(str + pos) == ' ' || *(str + pos) == '\t')
-		{
-			*(str + pos) = 0;
-			pos++;
-		}
-		if (*(str + pos))
-		{
-			tab[nb_word] = str + pos;
-			nb_word++;
-		}
-		while (*(str + pos) && *(str + pos) != ' ' && *(str + pos) != '\t')
+		while (str[pos] == ' ' || str[pos] == '\t')
+			str[pos++] = 0;
+		if (str[pos])
+			tab[nb_word++] = str + pos;
+		while (str[pos] && str[pos] != ' ' && str[pos] != '\t')
 			pos++;
 	}
 	tab[nb_word] = 0;
+}
+
+char	**mlx_int_str_to_wordtab(char *str)
+{
+	char	**tab;
+	int		len;
+
+	len = strlen(str);
+	nb_word = mlx_int_str_count_word(str, len);
+	tab = (char **)malloc((1 + nb_word) * sizeof(*tab));
+	if (!tab)
+		return ((char **)0);
+	mlx_int_str_init_wordtab(str, tab, len);
 	return (tab);
 }
