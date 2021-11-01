@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2001/12/11 15:25:27 by Charlie Roo       #+#    #+#             */
-/*   Updated: 2021/10/31 23:37:28 by jodufour         ###   ########.fr       */
+/*   Updated: 2021/11/01 13:32:22 by anclarma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ static char	*mlx_int_get_line(char *ptr, int *pos, int size)
 	return (ptr + pos4);
 }
 
-static unsigned int	strlcpy_is_not_posix(char *dest, char *src, unsigned int size)
+static unsigned int	strlcpy_is_not_posix(char *dest, char *src,
+	unsigned int size)
 {
 	unsigned int	count;
 	unsigned int	i;
@@ -144,27 +145,28 @@ static void	mlx_int_xpm_set_pixel(t_img *img, char *data,
 	}
 }
 
-static void	*mlx_int_parse_xpm(t_xvar *xvar, void *info, int info_size, char *(*f)())
+static void	*mlx_int_parse_xpm(t_xvar *xvar, void *info, int info_size,
+	char *(*f)())
 {
-	int		pos;
-	char	*line;
-	char	**tab;
-	char	*data;
-	int		nc;
-	int		opp;
-	int		cpp;
-	int		col;
-	int		rgb_col;
-	int		col_name;
-	int		method;
-	int		x;
-	int		i;
-	int		j;
-	t_img	*img;
+	int			pos;
+	char		*line;
+	char		**tab;
+	char		*data;
+	int			nc;
+	int			opp;
+	int			cpp;
+	int			col;
+	int			rgb_col;
+	int			col_name;
+	int			method;
+	int			x;
+	int			i;
+	int			j;
+	t_img		*img;
 	t_xpm_col	*colors;
-	int		*colors_direct;
-	int		width;
-	int		height;
+	int			*colors_direct;
+	int			width;
+	int			height;
 
 	colors = 0;
 	colors_direct = 0;
@@ -307,7 +309,8 @@ void	*mlx_xpm_file_to_image(t_xvar *xvar, char *file, int *width, int *height)
 	return (img);
 }
 
-void	*mlx_xpm_to_image(t_xvar *xvar, char **xpm_data, int *width, int *height)
+void	*mlx_xpm_to_image(t_xvar *xvar, char **xpm_data, int *width,
+	int *height)
 {
 	t_img	*img;
 

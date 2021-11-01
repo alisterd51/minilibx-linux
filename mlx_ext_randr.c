@@ -6,7 +6,7 @@
 /*   By: anclarma <anclarma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/18 00:23:37 by anclarma          #+#    #+#             */
-/*   Updated: 2021/10/18 00:30:37 by anclarma         ###   ########.fr       */
+/*   Updated: 2021/11/01 14:08:53 by anclarma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	mlx_ext_fullscreen(t_xvar *xvar, t_win_list *win, int fullscreen)
 	XRROutputInfo		*o_info;
 	XRRCrtcInfo			*crtc;
 	RRMode				mode_candidate;
-	RRMode				saved_mode = 0;
+	RRMode				saved_mode;
 	int					idx_output;
 	int					idx_candidate;
 
@@ -32,6 +32,7 @@ int	mlx_ext_fullscreen(t_xvar *xvar, t_win_list *win, int fullscreen)
 	res = XRRGetScreenResources(xvar->display, xvar->root);
 	o_info = NULL;
 	idx_output = -1;
+	saved_mode = 0;
 	i = res->noutput;
 	while (i--)
 	{
@@ -59,8 +60,10 @@ int	mlx_ext_fullscreen(t_xvar *xvar, t_win_list *win, int fullscreen)
 				if (res->modes[j].width >= watt.width
 					&& res->modes[j].height >= watt.height
 					&& (idx_candidate == -1
-						|| res->modes[idx_candidate].width > res->modes[j].width
-						|| res->modes[idx_candidate].height > res->modes[j].height))
+						|| res->modes[idx_candidate].width
+						> res->modes[j].width
+						|| res->modes[idx_candidate].height
+						> res->modes[j].height))
 					idx_candidate = i;
 	}
 	if (idx_candidate < 0)
@@ -76,17 +79,20 @@ int	mlx_ext_fullscreen(t_xvar *xvar, t_win_list *win, int fullscreen)
 		mode_candidate = saved_mode;
 	crtc = XRRGetCrtcInfo(xvar->display, res, o_info->crtc);
 	saved_mode = crtc->mode;
-	i = XRRSetCrtcConfig(xvar->display, res, o_info->crtc, CurrentTime, 0, 0, mode_candidate,
-			crtc->rotation, &res->outputs[idx_output], 1);
+	i = XRRSetCrtcConfig(xvar->display, res, o_info->crtc, CurrentTime, 0, 0,
+			mode_candidate, crtc->rotation, &res->outputs[idx_output], 1);
 	if (fullscreen)
-		printf("found mode : %d x %d\n Status %d\n", res->modes[idx_candidate].width, res->modes[idx_candidate].height, i);
+		printf("found mode : %d x %d\n Status %d\n",
+			res->modes[idx_candidate].width,
+			res->modes[idx_candidate].height, i);
 	else
 		printf("back previous mode\n");
 	XMoveWindow(xvar->display, win->window, 0, 0);
 	XMapRaised(xvar->display, win->window);
 	if (fullscreen)
 	{
-		XGrabKeyboard(xvar->display, win->window, False, GrabModeAsync, GrabModeAsync, CurrentTime);
+		XGrabKeyboard(xvar->display, win->window, False, GrabModeAsync,
+			GrabModeAsync, CurrentTime);
 	}
 	else
 	{

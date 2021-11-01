@@ -1,12 +1,14 @@
-/*
-** mlx.h for MinilibX in 
-** 
-** Made by Charlie Root
-** Login   <ol@epitech.net>
-** 
-** Started on  Mon Jul 31 16:37:50 2000 Charlie Root
-** Last update Tue May 15 16:23:28 2007 Olivier Crouzet
-*/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: Charlie Root <ol@epitech.net>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2000/07/31 16:37:50 by Charlie Root      #+#    #+#             */
+/*   Updated: 2021/11/01 13:34:42 by anclarma         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 /*
 **   MinilibX -  Please report bugs
@@ -26,7 +28,6 @@
 */
 
 #ifndef MLX_H
-
 # define MLX_H
 
 void	*mlx_init(void);
