@@ -6,7 +6,7 @@
 /*   By: Charlie Root <ol@epitech.net>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2000/08/13 11:36:09 by Charlie Root      #+#    #+#             */
-/*   Updated: 2021/11/01 17:40:09 by anclarma         ###   ########.fr       */
+/*   Updated: 2021/11/01 17:46:07 by anclarma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ char	**mlx_int_str_to_wordtab(char *str)
 {
 	char	**tab;
 	int		len;
+	int		nb_word;
 
 	len = strlen(str);
 	nb_word = mlx_int_str_count_word(str, len);
