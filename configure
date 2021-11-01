@@ -100,8 +100,8 @@ main(){
 	local xlib_inc="$(get_xlib_include_path)"
 
 	case $(uname) in
-		FreeBSD) MAKE=gmake ;;
-		*) MAKE=make ;;
+		FreeBSD) MAKE="gmake" ;;
+		*) MAKE="make" ;;
 	esac
 
 	parse_args "$@"
