@@ -81,8 +81,8 @@ test_default_main(){
 
 main(){
 	case $(uname) in
-		FreeBSD) MAKE=$(gmake) ;;
-		*) MAKE=$(make) ;;
+		FreeBSD) MAKE=gmake ;;
+		*) MAKE=make ;;
 	esac
 	cd $(dirname $0)
 	trap at_exit		EXIT
