@@ -6,7 +6,7 @@
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2001/12/11 15:25:27 by Charlie Roo       #+#    #+#             */
-/*   Updated: 2021/11/01 13:32:22 by anclarma         ###   ########.fr       */
+/*   Updated: 2021/11/02 19:20:48 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ static char	*mlx_int_static_line(char **xpm_data, int *pos)
 		if (copy)
 			free(copy);
 		copy = malloc(len2 + 1);
+		*mlx_anti_leaks_00() = copy;
 		if (!copy)
 			return ((char *)0);
 		len = len2;

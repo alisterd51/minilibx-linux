@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_destroy_display.c                              :+:      :+:    :+:   */
+/*   mlx_anti_leaks.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jodufour <jodufour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/03 18:56:35 by mg                #+#    #+#             */
-/*   Updated: 2021/11/02 19:20:19 by jodufour         ###   ########.fr       */
+/*   Created: 2021/11/02 19:16:35 by jodufour          #+#    #+#             */
+/*   Updated: 2021/11/02 19:17:36 by jodufour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mlx_int.h"
+#include <stddef.h>
 
-void	mlx_destroy_display(t_xvar *xvar)
+void	**mlx_anti_leaks_00(void)
 {
-	free(*mlx_anti_leaks_00());
-	*mlx_anti_leaks_00() = NULL;
-	XCloseDisplay(xvar->display);
-	free(xvar);
-	xvar = NULL;
+	static void	*ptr = NULL;
+
+	return (&ptr);
 }
