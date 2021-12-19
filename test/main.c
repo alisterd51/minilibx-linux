@@ -6,7 +6,7 @@
 /*   By: anclarma <anclarma@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/21 00:26:02 by anclarma          #+#    #+#             */
-/*   Updated: 2021/10/27 05:13:05 by anclarma         ###   ########.fr       */
+/*   Updated: 2021/12/19 19:42:06 by anclarma         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,22 +53,6 @@ int		xpm1_x;
 int		xpm1_y;
 
 int		local_endian;
-
-static void	init_mlx(t_mlx *mlx)
-{
-	mlx->mlx_ptr = (void *)0;
-	mlx->win1 = (void *)0;
-	mlx->win2 = (void *)0;
-	mlx->win3 = (void *)0;
-	mlx->im1 = (void *)0;
-	mlx->im2 = (void *)0;
-	mlx->im3 = (void *)0;
-	mlx->im4 = (void *)0;
-	mlx->data1 = (void *)0;
-	mlx->data2 = (void *)0;
-	mlx->data3 = (void *)0;
-	mlx->data4 = (void *)0;
-}
 
 static void	clean_mlx(t_mlx *mlx)
 {
@@ -234,7 +218,7 @@ int	main(void)
 	int		a;
 	t_mlx	mlx;
 
-	init_mlx(&mlx);
+	mlx = (t_mlx){0};
 	printf("MinilibX Test Program\n");
 	a = 0x11223344;
 	if (((unsigned char *)&a)[0] == 0x11)
